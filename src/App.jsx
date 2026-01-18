@@ -50,7 +50,7 @@ const wardFamous = {
   "品川区": "しながわ水族館、大井競馬場",
   "目黒区": "目黒川の桜、自由が丘",
   "大田区": "羽田空港、洗足池",
-  "世田谷区": "二子玉川、三軒茶屋、豪徳寺",
+  "世田谷区": "二子玉川、三軒屋、豪徳寺",
   "渋谷区": "ハチ公、スクランブル交差点、代々木公園",
   "中野区": "中野ブロードウェイ、哲学堂公園",
   "杉並区": "高円寺（阿波おどり）、荻窪ラーメン",
@@ -105,54 +105,102 @@ function App() {
   if (!currentWard) return null;
 
   return (
-    <div style={{ textAlign: 'center', backgroundColor: '#6b63b5', minHeight: '100vh', padding: '20px', fontFamily: 'sans-serif' }}>
-      <div style={{ 
-        backgroundColor: isCorrect ? '#eff6ff' : 'white', borderRadius: '25px', padding: '20px', maxWidth: '800px', margin: '0 auto', boxShadow: '0 10px 30px rgba(0,0,0,0.3)', transition: 'background-color 0.3s ease'
-      }}>
+    <div className="app-container">
+      <div className="quiz-card">
         <h1>東京23区クイズ</h1>
-        <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#6b63b5' }}>{score.correct} / 23 達成！</div>
-        <hr style={{ margin: '15px 0', border: 'none', height: '1px', backgroundColor: '#eee' }} />
+        <div className="score-display">{score.correct} / 23 達成！</div>
+        <hr className="divider" />
         
-        {/* メッセージ表示エリア */}
-        <div style={{ minHeight: '2.5em', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '10px' }}>
-          <div style={{ fontSize: '1.2rem', color: isCorrect ? '#1d4ed8' : '#333', fontWeight: 'bold' }}>{message}</div>
+        <div className="message-area">
+          <div className={`message-text ${isCorrect ? 'correct' : ''}`}>{message}</div>
         </div>
 
-        {/* 区名（読み仮名は小さく） */}
-        <div style={{ fontSize: '3.5rem', fontWeight: 'bold', color: isCorrect ? '#1e40af' : '#6b63b5', marginBottom: '10px' }}>
+        <div className="ward-display">
           {currentWard !== "完全制覇！" ? (
-            <>
+            <ruby>
               {currentWard}
-              <span style={{ fontSize: '1.2rem', fontWeight: 'normal', marginLeft: '8px', opacity: 0.6 }}>
-                （{wardReadings[currentWard]}）
-              </span>
-            </>
+              <rt>{wardReadings[currentWard]}</rt>
+            </ruby>
           ) : currentWard}
         </div>
 
-        {/* 有名なもの */}
         {currentWard !== "完全制覇！" && (
-          <div style={{ fontSize: '0.95rem', color: '#666', marginBottom: '10px', backgroundColor: '#f9fafb', display: 'inline-block', padding: '6px 18px', borderRadius: '15px' }}>
-            🌟 有名なもの：<span style={{ color: '#333', fontWeight: 'bold' }}>{wardFamous[currentWard]}</span>
+          <div className="famous-tag">
+            🌟 有名なもの：<strong>{wardFamous[currentWard]}</strong>
           </div>
         )}
 
-        {/* 覚え方（有名なものの下に配置） */}
-        <div style={{ minHeight: '2.5em', marginBottom: '15px' }}>
+        <div className="hint-area">
           {currentWard !== "完全制覇！" && !isCorrect && (
-            <div style={{ color: '#6b63b5', fontSize: '1.1rem', fontWeight: '500', animation: 'fadeIn 0.5s' }}>
-              💡 覚え方：{wardMnemonics[currentWard]}
-            </div>
+            <div className="hint-text">💡 覚え方：{wardMnemonics[currentWard]}</div>
           )}
         </div>
 
-        <TokyoMap onwardClick={handleWardClick} answeredWards={answeredWards} />
+        <div className="map-wrapper">
+          <TokyoMap onwardClick={handleWardClick} answeredWards={answeredWards} />
+        </div>
       </div>
 
       <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
+        .app-container {
+          text-align: center;
+          background-color: #6b63b5;
+          min-height: 100vh;
+          padding: 10px;
+          font-family: sans-serif;
+          display: flex;
+          flex-direction: column;
+        }
+        .quiz-card {
+          background-color: white;
+          border-radius: 25px;
+          padding: 15px;
+          max-width: 800px;
+          margin: 0 auto;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+        }
+        h1 { font-size: 1.5rem; margin: 10px 0; }
+        .score-display { font-size: 1.1rem; font-weight: bold; color: #6b63b5; }
+        .divider { margin: 10px 0; border: none; height: 1px; backgroundColor: #eee; }
+        .message-area { min-height: 2em; display: flex; alignItems: center; justifyContent: center; margin-bottom: 5px; }
+        .message-text { font-size: 1.1rem; font-weight: bold; }
+        .message-text.correct { color: #1d4ed8; }
+        
+        /* ルビ表示のスタイル */
+        .ward-display {
+          font-size: 4rem;
+          font-weight: bold;
+          color: #6b63b5;
+          margin: 25px 0 10px 0;
+          line-height: 1.2;
+        }
+        rt {
+          font-size: 1.1rem;
+          font-weight: normal;
+          display: ruby-text;
+          color: #666;
+          padding-bottom: 5px;
+        }
+
+        .famous-tag { font-size: 0.9rem; color: #666; margin-bottom: 5px; background-color: #f9fafb; padding: 5px 15px; border-radius: 15px; }
+        .hint-area { min-height: 2.5em; margin-bottom: 10px; }
+        .hint-text { color: #6b63b5; font-size: 1rem; font-weight: 500; }
+        
+        /* 地図を大きく広げるための設定 */
+        .map-wrapper {
+          flex-grow: 1;
+          min-height: 350px;
+          position: relative;
+        }
+
+        /* スマホ（OPPO Reno 10 Pro）向けの微調整 */
+        @media (max-width: 600px) {
+          .ward-display { font-size: 3.5rem; margin: 30px 0 10px 0; }
+          rt { font-size: 1rem; }
+          .map-wrapper { min-height: 400px; }
         }
       `}</style>
     </div>
