@@ -1,20 +1,30 @@
 import './QuizPanel.css'
 
 function QuizPanel({ currentWard, showResult, isCorrect, onNext }) {
+  // かっこ（読み）を切り分ける処理
+  const renderWardName = () => {
+    // 全角または半角のかっこを探す
+    const match = currentWard.match(/^(.*?)[（\((](.*?)[）\))]$/);
+    
+    if (match) {
+      const kanji = match[1]; // 漢字部分
+      const yomi = match[2];  // よみがな部分
+      return (
+        <ruby>
+          {kanji}<rt>{yomi}</rt>
+        </ruby>
+      );
+    }
+    // かっこがない場合はそのまま表示
+    return currentWard;
+  };
+
   return (
     <div className="quiz-panel">
       <div className="question">
         <h2>この区はどこ？</h2>
         <div className="ward-name">
-          {/* 括弧が含まれている場合のみルビ表示にする仕組み */}
-          {currentWard.includes('（') ? (
-            <ruby>
-              {currentWard.split('（')[0]}
-              <rt>{currentWard.split('（')[1].replace('）', '')}</rt>
-            </ruby>
-          ) : (
-            currentWard
-          )}
+          {renderWardName()}
         </div>
       </div>
 
