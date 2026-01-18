@@ -103,37 +103,36 @@
   }
 }
 
-/* モバイル（スマホ）向けの調整：よみがな対策版 */
+/* モバイル（スマホ）向けの調整：文字サイズ自動縮小版 */
 @media (max-width: 600px) {
-  /* 区名全体のサイズをさらに調整 */
   .district-name {
-    font-size: 2.2rem !important; /* 3remから2.2remに少し小さくして、1行に収める */
-    margin: 8px 0 !important;
-    white-space: nowrap !important; /* 絶対に改行させない */
-    display: flex;
-    flex-wrap: nowrap; /* 中の要素も横並びをキープ */
-    align-items: baseline;
-    justify-content: center;
-    gap: 5px; /* 漢字とよみがなの間の隙間 */
+    /* 画面幅（vw）を基準にサイズを決めることで、絶対に2行にさせない */
+    font-size: 8vw !important; 
+    margin: 5px 0 !important;
+    white-space: nowrap !important;
+    display: block !important; /* flexから変更して中央揃えを確実に */
+    text-align: center;
+    width: 100%;
+    overflow: hidden; /* 万が一はみ出しても2行にしない */
   }
 
-  /* よみがな部分だけをさらに小さくする */
+  /* よみがな部分の調整 */
   .district-name span, 
   .district-name small {
-    font-size: 1.1rem !important; /* よみがなを小さくして、メインの区名を際立たせる */
-    opacity: 0.8;
+    font-size: 4vw !important; /* 漢字の半分くらいのサイズに自動調整 */
+    display: inline-block;
+    margin-left: 5px;
+    vertical-align: middle;
   }
 
-  /* 地図を最大限大きく表示 */
+  /* 地図をさらに大きく確保 */
   .map-container {
-    height: 380px !important; /* 高さを少し増やしました */
+    height: 45vh !important; /* 画面の高さの45%を地図に割り当てる */
     margin-top: 5px !important;
-    flex-grow: 1;
   }
 
-  /* ヒントやメッセージの余白を最小限にする */
-  .feedback-message {
-    font-size: 0.9rem !important;
-    margin-bottom: 2px !important;
+  /* クイズパネル全体の余白を極限まで削る */
+  .quiz-panel {
+    padding: 5px 10px !important;
   }
 }
