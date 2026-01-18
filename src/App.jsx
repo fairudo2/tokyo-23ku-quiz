@@ -73,6 +73,8 @@ function App() {
       setAnsweredWards(prev => [...new Set([...prev, clickedWardName])]);
       setIsCorrect(true);
       setMessage("✨ 正解！すごい！ ✨");
+      
+      // 次の問題へ移る時間を 1500ms から 750ms へ短縮
       setTimeout(() => {
         const remaining = wardsList.filter(w => !answeredWards.includes(w) && w !== clickedWardName);
         if (remaining.length === 0) {
@@ -84,7 +86,7 @@ function App() {
           setMessage("この区はどこ？");
         }
         setIsCorrect(false);
-      }, 1500);
+      }, 750); 
     } else {
       setMessage(`残念！そこは「${clickedWardName}」だよ。`);
       setScore(prev => ({ ...prev, total: prev.total + 1 }));
@@ -169,18 +171,16 @@ function App() {
         }
         .map-zoom-wrapper { width: 800px; height: 600px; margin: 0 auto; }
 
-        /* 【重要】境界線を真っ黒・極太にする設定 */
         path {
-          stroke: #000000 !important;   /* 真っ黒 */
-          stroke-width: 4px !important;  /* 極太（4px） */
-          stroke-opacity: 1 !important;  /* 透明度なし */
+          stroke: #000000 !important;
+          stroke-width: 4px !important;
+          stroke-opacity: 1 !important;
           stroke-linejoin: round;
         }
 
         @media (max-width: 600px) {
           .ward-display { font-size: 2.5rem; }
           .map-zoom-wrapper { width: 700px; height: 550px; }
-          /* スマホ（OPPO Reno 10 Pro）ではさらに強調 */
           path { stroke-width: 5px !important; } 
         }
       `}</style>
