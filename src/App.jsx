@@ -96,16 +96,13 @@ function App() {
   return (
     <div className="app-container">
       <div className="quiz-card">
-        {/* 固定エリア：タイトル、スコア、問題文、区名、ヒント */}
         <div className="fixed-header">
           <h1>東京23区クイズ</h1>
           <div className="score-display">{score.correct} / 23 達成！</div>
           <hr className="divider" />
-          
           <div className="message-area">
             <div className={`message-text ${isCorrect ? 'correct' : ''}`}>{message}</div>
           </div>
-
           <div className="ward-display">
             {currentWard !== "完全制覇！" ? (
               <ruby>
@@ -114,7 +111,6 @@ function App() {
               </ruby>
             ) : currentWard}
           </div>
-
           {currentWard !== "完全制覇！" && (
             <div className="info-section">
               <div className="famous-tag">🌟 有名なもの：<strong>{wardFamous[currentWard]}</strong></div>
@@ -123,7 +119,6 @@ function App() {
           )}
         </div>
 
-        {/* スクロールエリア：地図のみ */}
         <div className="scrollable-map-container">
           <div className="map-zoom-wrapper">
             <TokyoMap onwardClick={handleWardClick} answeredWards={answeredWards} />
@@ -134,8 +129,8 @@ function App() {
       <style>{`
         .app-container {
           background-color: #6b63b5;
-          height: 100vh; /* 画面の高さぴったりにする */
-          overflow: hidden; /* 全体はスクロールさせない */
+          height: 100vh;
+          overflow: hidden;
           padding: 10px;
           display: flex;
           flex-direction: column;
@@ -147,53 +142,43 @@ function App() {
           max-width: 800px;
           margin: 0 auto;
           width: 100%;
-          height: 100%; /* カードも画面いっぱい */
+          height: 100%;
           display: flex;
           flex-direction: column;
           box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-        .fixed-header {
-          flex-shrink: 0; /* 上の部分は縮ませない */
-          text-align: center;
-          padding-bottom: 10px;
-        }
+        .fixed-header { flex-shrink: 0; text-align: center; padding-bottom: 10px; }
         h1 { font-size: 1.2rem; margin: 5px 0; }
         .score-display { font-size: 0.9rem; font-weight: bold; color: #6b63b5; }
         .divider { margin: 5px 0; border: none; height: 1px; background-color: #eee; }
         .message-area { min-height: 1.5em; margin-bottom: 5px; }
         .message-text { font-size: 0.9rem; font-weight: bold; }
-        
-        .ward-display {
-          font-size: 2.8rem;
-          font-weight: bold;
-          color: #6b63b5;
-          margin: 10px 0;
-          line-height: 1.1;
-        }
+        .ward-display { font-size: 2.8rem; font-weight: bold; color: #6b63b5; margin: 10px 0; line-height: 1.1; }
         rt { font-size: 0.9rem; font-weight: normal; color: #666; display: ruby-text; }
-
         .info-section { background-color: #f9fafb; padding: 8px; border-radius: 12px; margin-bottom: 10px; }
         .famous-tag { font-size: 0.8rem; color: #666; margin-bottom: 4px; }
         .hint-text { color: #6b63b5; font-size: 0.85rem; font-weight: 500; }
         
-        /* 地図のみをスクロールさせる設定 */
         .scrollable-map-container {
-          flex-grow: 1; /* 残りの画面をすべて使う */
-          overflow: auto; /* ここだけスクロールを許可 */
+          flex-grow: 1;
+          overflow: auto;
           background-color: #fafafa;
           border-radius: 10px;
           border: 1px solid #eee;
           -webkit-overflow-scrolling: touch;
         }
-        .map-zoom-wrapper {
-          width: 800px; /* 地図をわざと横長にする */
-          height: 600px; /* 地図をわざと縦長にする */
-          margin: 0 auto;
+        .map-zoom-wrapper { width: 800px; height: 600px; margin: 0 auto; }
+
+        /* 地図の境界線を強制的に濃く・太くする設定 */
+        path {
+          stroke: #333 !important;      /* 濃いグレー（ほぼ黒） */
+          stroke-width: 1.5px !important; /* 太さを1.5pxに強化 */
         }
 
         @media (max-width: 600px) {
           .ward-display { font-size: 2.5rem; }
           .map-zoom-wrapper { width: 700px; height: 550px; }
+          path { stroke-width: 2px !important; } /* スマホではさらに太く見せる */
         }
       `}</style>
     </div>
