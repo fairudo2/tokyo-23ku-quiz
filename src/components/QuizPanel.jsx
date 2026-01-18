@@ -1,21 +1,21 @@
 import './QuizPanel.css'
 
 function QuizPanel({ currentWard, showResult, isCorrect, onNext }) {
-  // かっこ（読み）を切り分ける処理
+  // 漢字とよみがなを切り分ける処理（スペースや括弧の種類を問わず対応）
   const renderWardName = () => {
-    // 全角または半角のかっこを探す
-    const match = currentWard.match(/^(.*?)[（\((](.*?)[）\))]$/);
+    // スペースがあっても、半角・全角どちらの括弧でも切り分けられるように強化
+    const match = currentWard.match(/^(.*?)\s*[（\((](.*?)[）\))]\s*$/);
     
     if (match) {
-      const kanji = match[1]; // 漢字部分
-      const yomi = match[2];  // よみがな部分
+      const kanji = match[1].trim(); // 漢字部分（前後の余白を消す）
+      const yomi = match[2].trim();  // よみがな部分
       return (
         <ruby>
           {kanji}<rt>{yomi}</rt>
         </ruby>
       );
     }
-    // かっこがない場合はそのまま表示
+    // 括弧がない場合はそのまま表示
     return currentWard;
   };
 

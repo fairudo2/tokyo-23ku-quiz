@@ -1,49 +1,54 @@
 .quiz-panel {
-  padding: 20px;
+  padding: 15px;
   text-align: center;
 }
 
 .question h2 {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: #666;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 /* 区名のスタイル（ルビ対応） */
 .ward-name {
-  font-size: 5rem; /* PCでのサイズ */
+  font-size: 4.5rem; /* PCでのサイズ */
   font-weight: bold;
   color: #4A90E2;
-  margin: 20px 0;
+  margin: 25px 0 15px 0;
+  line-height: 1.2;
 }
 
-/* スマホ向けの強力な調整 */
+/* ルビ（よみがな）の設定 */
+rt {
+  font-size: 0.35em !important; /* 漢字の約3分の1のサイズ */
+  color: #666;
+  font-weight: normal;
+  display: ruby-text;
+  padding-bottom: 0.2em;
+}
+
+/* モバイル（スマホ）向けの調整 */
 @media (max-width: 600px) {
   .ward-name {
-    font-size: 4.5rem !important; /* 画面幅いっぱいに漢字を表示 */
-    margin: 30px 0 10px 0 !important;
-    line-height: 1.2;
+    font-size: 4rem !important; /* スマホでは少しだけ小さくして1行を死守 */
+    margin: 35px 0 10px 0 !important;
   }
 
-  /* ルビ（よみがな）のサイズと位置 */
   rt {
-    font-size: 1.2rem !important;
-    letter-spacing: 0.1rem;
-    padding-bottom: 10px;
-    display: ruby-text;
-    color: #666;
+    font-size: 1.1rem !important; /* スマホでも読みやすいサイズ */
   }
 
-  /* 地図を大きく表示 */
+  /* 地図のエリアを大きく確保 */
   .map-container {
     height: 45vh !important;
-    margin-top: 10px !important;
+    margin-top: 5px !important;
+    flex-grow: 1;
   }
 }
 
 .result {
-  margin-top: 20px;
-  padding: 20px;
+  margin-top: 15px;
+  padding: 15px;
   border-radius: 10px;
 }
 
@@ -51,12 +56,11 @@
 .result.incorrect { background-color: #ffebee; }
 
 .next-button {
-  margin-top: 15px;
-  padding: 10px 30px;
-  font-size: 1.2rem;
+  margin-top: 10px;
+  padding: 8px 25px;
+  font-size: 1.1rem;
   background-color: #4A90E2;
   color: white;
   border: none;
   border-radius: 5px;
-  cursor: pointer;
 }
