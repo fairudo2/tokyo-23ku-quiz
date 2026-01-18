@@ -102,3 +102,40 @@
     font-size: 1.2rem;
   }
 }
+
+/* モバイル（スマホ）向けの調整 */
+@media (max-width: 600px) {
+  /* 問題の区名のサイズを調整 */
+  .district-name {
+    font-size: 3rem !important; /* 文字を少し小さくして1行に収まりやすくする */
+    margin: 10px 0 !important;
+    white-space: nowrap; /* 強制的に1行にする */
+  }
+
+  /* 「残念！そこは〜」などのメッセージ欄の余白を削る */
+  .feedback-message {
+    font-size: 1rem !important;
+    margin-bottom: 5px !important;
+  }
+
+  /* 覚え方（ヒント）の文字サイズを調整 */
+  .hint-section {
+    font-size: 0.9rem !important;
+    margin: 5px 0 !important;
+  }
+
+  /* 地図のコンテナを大きく広げる */
+  .map-container {
+    height: 350px !important; /* 高さを確保して地図を大きく見せる */
+    margin-top: 10px !important;
+    flex-grow: 1; /* 余ったスペースを地図に割り当てる */
+  }
+
+  /* 全体のパディングを調整して上下の詰まりを解消 */
+  .quiz-panel {
+    padding: 10px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
