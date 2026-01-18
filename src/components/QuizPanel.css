@@ -1,33 +1,33 @@
 .quiz-panel { padding: 10px; text-align: center; }
 .question h2 { font-size: 1.2rem; color: #666; margin-bottom: 5px; }
 
-/* 区名のスタイル（スマホで最大級に表示） */
 .ward-name {
   font-size: 5rem;
   font-weight: bold;
   color: #4A90E2;
-  margin: 35px 0 10px 0;
+  margin: 40px 0 10px 0;
   line-height: 1.2;
 }
 
-/* ルビ（読みがな）の設定：漢字の上に表示 */
-ruby { ruby-align: center; }
+/* ルビの強制設定 */
+ruby { 
+  ruby-align: center;
+  display: inline-ruby !important;
+}
 rt {
-  font-size: 1.2rem !important; /* 読みのサイズ */
+  font-size: 0.3em !important;
   color: #666;
   font-weight: normal;
-  display: ruby-text !important;
-  padding-bottom: 0.3em;
+  display: ruby-text !important; /* ブラウザにルビだと強く認識させる */
+  padding-bottom: 0.2em;
 }
 
-/* スマホ（OPPO Reno 10 Pro）向けの調整 */
 @media (max-width: 600px) {
-  .ward-name { font-size: 4.2rem !important; margin: 45px 0 15px 0 !important; }
-  rt { font-size: 1.1rem !important; }
-  .map-container { height: 45vh !important; flex-grow: 1; }
+  .ward-name { font-size: 4.2rem !important; margin: 50px 0 20px 0 !important; }
+  rt { font-size: 1.2rem !important; }
 }
 
 .result { margin-top: 10px; padding: 15px; border-radius: 10px; }
 .result.correct { background-color: #e8f5e9; }
 .result.incorrect { background-color: #ffebee; }
-.next-button { margin-top: 10px; padding: 10px 30px; font-size: 1.2rem; background-color: #4A90E2; color: white; border: none; border-radius: 8px; }
+.next-button { margin-top: 10px; padding: 12px 35px; font-size: 1.2rem; background-color: #4A90E2; color: white; border: none; border-radius: 8px; }

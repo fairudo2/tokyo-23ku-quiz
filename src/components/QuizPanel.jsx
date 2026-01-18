@@ -1,16 +1,18 @@
 import './QuizPanel.css'
 
 function QuizPanel({ currentWard, showResult, isCorrect, onNext }) {
-  // 漢字と読みを切り分ける（スペースやカッコの種類を問わず対応）
   const renderWardName = () => {
     if (!currentWard) return "";
     
-    // 全角・半角のカッコで分割
-    const parts = currentWard.split(/[（\((]/);
+    // カッコ（全角・半角どちらでも）の位置を探す
+    const openParenIndex = currentWard.indexOf('（') !== -1 ? currentWard.indexOf('（') : currentWard.indexOf('(');
     
-    if (parts.length > 1) {
-      const kanji = parts[0].trim();
-      const yomi = parts[1].replace(/[）\)]/g, '').trim();
+    if (openParenIndex !== -1) {
+      const kanji = currentWard.substring(0, openParenIndex).trim();
+      // 閉じカッコを無視して、中身の読みがなだけを取り出す
+      const yomiPart = currentWard.substring(openParenIndex + 1);
+      const yomi = yomiPart.replace(/[）\)]/g, '').trim();
+      
       return (
         <ruby>
           {kanji}
@@ -29,7 +31,6 @@ function QuizPanel({ currentWard, showResult, isCorrect, onNext }) {
           {renderWardName()}
         </div>
       </div>
-
       {showResult && (
         <div className={`result ${isCorrect ? 'correct' : 'incorrect'}`}>
           <div className="result-icon">{isCorrect ? '✓' : '✕'}</div>
