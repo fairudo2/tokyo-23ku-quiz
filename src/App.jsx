@@ -169,16 +169,19 @@ function App() {
         }
         .map-zoom-wrapper { width: 800px; height: 600px; margin: 0 auto; }
 
-        /* 地図の境界線を強制的に濃く・太くする設定 */
+        /* 【重要】境界線を真っ黒・極太にする設定 */
         path {
-          stroke: #333 !important;      /* 濃いグレー（ほぼ黒） */
-          stroke-width: 1.5px !important; /* 太さを1.5pxに強化 */
+          stroke: #000000 !important;   /* 真っ黒 */
+          stroke-width: 4px !important;  /* 極太（4px） */
+          stroke-opacity: 1 !important;  /* 透明度なし */
+          stroke-linejoin: round;
         }
 
         @media (max-width: 600px) {
           .ward-display { font-size: 2.5rem; }
           .map-zoom-wrapper { width: 700px; height: 550px; }
-          path { stroke-width: 2px !important; } /* スマホではさらに太く見せる */
+          /* スマホ（OPPO Reno 10 Pro）ではさらに強調 */
+          path { stroke-width: 5px !important; } 
         }
       `}</style>
     </div>
