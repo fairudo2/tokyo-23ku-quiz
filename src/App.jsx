@@ -74,7 +74,7 @@ function App() {
       setIsCorrect(true);
       setMessage("✨ 正解！すごい！ ✨");
       
-      // 次の問題へ移る時間を 1500ms から 750ms へ短縮
+      // 【変更点1】次の問題へ移る時間を「最低限（0.3秒）」に短縮
       setTimeout(() => {
         const remaining = wardsList.filter(w => !answeredWards.includes(w) && w !== clickedWardName);
         if (remaining.length === 0) {
@@ -86,7 +86,7 @@ function App() {
           setMessage("この区はどこ？");
         }
         setIsCorrect(false);
-      }, 750); 
+      }, 300); // 750ms → 300ms へ変更
     } else {
       setMessage(`残念！そこは「${clickedWardName}」だよ。`);
       setScore(prev => ({ ...prev, total: prev.total + 1 }));
@@ -171,9 +171,10 @@ function App() {
         }
         .map-zoom-wrapper { width: 800px; height: 600px; margin: 0 auto; }
 
+        /* 【変更点2】地図の境界線の設定 */
         path {
-          stroke: #000000 !important;
-          stroke-width: 4px !important;
+          stroke: #444444 !important;   /* 真っ黒から「おしゃれな濃いグレー」に変更 */
+          stroke-width: 2px !important;  /* 太さを半分（4px → 2px）に変更 */
           stroke-opacity: 1 !important;
           stroke-linejoin: round;
         }
@@ -181,7 +182,8 @@ function App() {
         @media (max-width: 600px) {
           .ward-display { font-size: 2.5rem; }
           .map-zoom-wrapper { width: 700px; height: 550px; }
-          path { stroke-width: 5px !important; } 
+          /* スマホでも太さを半分に */
+          path { stroke-width: 2.5px !important; } 
         }
       `}</style>
     </div>
