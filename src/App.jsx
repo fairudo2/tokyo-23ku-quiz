@@ -39,28 +39,17 @@ const wardMnemonics = {
 };
 
 const wardFamous = {
-  "千代田区": "皇居、東京駅、秋葉原",
-  "中央区": "銀座、日本橋、築地",
-  "港区": "東京タワー、六本木ヒルズ、レインボーブリッジ",
-  "新宿区": "東京都庁、歌舞伎町、新宿御苑",
-  "文京区": "東京ドーム、後楽園、東京大学",
-  "台東区": "浅草寺、上野動物園、アメ横",
-  "墨田区": "東京スカイツリー、両国国技館",
-  "江東区": "豊洲市場、東京ビッグサイト、清澄庭園",
-  "品川区": "しながわ水族館、大井競馬場",
-  "目黒区": "目黒川の桜、自由が丘",
-  "大田区": "羽田空港、洗足池",
-  "世田谷区": "二子玉川、三軒屋、豪徳寺",
-  "渋谷区": "ハチ公、スクランブル交差点、代々木公園",
-  "中野区": "中野ブロードウェイ、哲学堂公園",
-  "杉並区": "高円寺（阿波おどり）、荻窪ラーメン",
-  "豊島区": "サンシャインシティ、池袋、とげぬき地蔵",
-  "北区": "飛鳥山公園、赤羽、旧古河庭園",
-  "荒川区": "あらかわ遊園、都電荒川線",
-  "板橋区": "赤塚植物園、いたばし花火大会",
-  "練馬区": "アニメ、光が丘公園、練馬大根",
-  "足立区": "西新井大師、北千住、舎人公園",
-  "葛飾区": "柴又（寅さん）、亀有（こち亀）、水元公園",
+  "千代田区": "皇居、東京駅、秋葉原", "中央区": "銀座、日本橋、築地",
+  "港区": "東京タワー、六本木ヒルズ、レインボーブリッジ", "新宿区": "東京都庁、歌舞伎町、新宿御苑",
+  "文京区": "東京ドーム、後楽園、東京大学", "台東区": "浅草寺、上野動物園、アメ横",
+  "墨田区": "東京スカイツリー、両国国技館", "江東区": "豊洲市場、東京ビッグサイト、清澄庭園",
+  "品川区": "しながわ水族館、大井競馬場", "目黒区": "目黒川の桜、自由が丘",
+  "大田区": "羽田空港、洗足池", "世田谷区": "二子玉川、三軒屋、豪徳寺",
+  "渋谷区": "ハチ公、スクランブル交差点、代々木公園", "中野区": "中野ブロードウェイ、哲学堂公園",
+  "杉並区": "高円寺（阿波おどり）、荻窪ラーメン", "豊島区": "サンシャインシティ、池袋、とげぬき地蔵",
+  "北区": "飛鳥山公園、赤羽、旧古河庭園", "荒川区": "あらかわ遊園、都電荒川線",
+  "板橋区": "赤塚植物園、いたばし花火大会", "練馬区": "アニメ、光が丘公園、練馬大根",
+  "足立区": "西新井大師、北千住、舎人公園", "葛飾区": "柴又（寅さん）、亀有（こち亀）、水元公園",
   "江戸川区": "葛西臨海水族園、小松菜、ポニーランド"
 };
 
@@ -107,36 +96,34 @@ function App() {
   return (
     <div className="app-container">
       <div className="quiz-card">
-        <h1>東京23区クイズ</h1>
-        <div className="score-display">{score.correct} / 23 達成！</div>
-        <hr className="divider" />
-        
-        <div className="message-area">
-          <div className={`message-text ${isCorrect ? 'correct' : ''}`}>{message}</div>
-        </div>
-
-        <div className="ward-display">
-          {currentWard !== "完全制覇！" ? (
-            <ruby>
-              {currentWard}
-              <rt>{wardReadings[currentWard]}</rt>
-            </ruby>
-          ) : currentWard}
-        </div>
-
-        {currentWard !== "完全制覇！" && (
-          <div className="famous-tag">
-            🌟 有名なもの：<strong>{wardFamous[currentWard]}</strong>
+        {/* 固定エリア：タイトル、スコア、問題文、区名、ヒント */}
+        <div className="fixed-header">
+          <h1>東京23区クイズ</h1>
+          <div className="score-display">{score.correct} / 23 達成！</div>
+          <hr className="divider" />
+          
+          <div className="message-area">
+            <div className={`message-text ${isCorrect ? 'correct' : ''}`}>{message}</div>
           </div>
-        )}
 
-        <div className="hint-area">
-          {currentWard !== "完全制覇！" && !isCorrect && (
-            <div className="hint-text">💡 覚え方：{wardMnemonics[currentWard]}</div>
+          <div className="ward-display">
+            {currentWard !== "完全制覇！" ? (
+              <ruby>
+                {currentWard}
+                <rt>{wardReadings[currentWard]}</rt>
+              </ruby>
+            ) : currentWard}
+          </div>
+
+          {currentWard !== "完全制覇！" && (
+            <div className="info-section">
+              <div className="famous-tag">🌟 有名なもの：<strong>{wardFamous[currentWard]}</strong></div>
+              <div className="hint-text">💡 覚え方：{wardMnemonics[currentWard]}</div>
+            </div>
           )}
         </div>
 
-        {/* スクロール可能な地図エリア */}
+        {/* スクロールエリア：地図のみ */}
         <div className="scrollable-map-container">
           <div className="map-zoom-wrapper">
             <TokyoMap onwardClick={handleWardClick} answeredWards={answeredWards} />
@@ -146,78 +133,67 @@ function App() {
 
       <style>{`
         .app-container {
-          text-align: center;
           background-color: #6b63b5;
-          min-height: 100vh;
+          height: 100vh; /* 画面の高さぴったりにする */
+          overflow: hidden; /* 全体はスクロールさせない */
           padding: 10px;
-          font-family: sans-serif;
           display: flex;
           flex-direction: column;
         }
         .quiz-card {
           background-color: white;
-          border-radius: 25px;
-          padding: 15px;
+          border-radius: 20px;
+          padding: 10px;
           max-width: 800px;
           margin: 0 auto;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+          width: 100%;
+          height: 100%; /* カードも画面いっぱい */
           display: flex;
           flex-direction: column;
-          overflow: hidden;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-        h1 { font-size: 1.4rem; margin: 5px 0; }
-        .score-display { font-size: 1rem; font-weight: bold; color: #6b63b5; }
-        .divider { margin: 8px 0; border: none; height: 1px; background-color: #eee; }
-        .message-area { min-height: 2.2em; display: flex; align-items: center; justify-content: center; }
-        .message-text { font-size: 1rem; font-weight: bold; }
-        .message-text.correct { color: #1d4ed8; }
+        .fixed-header {
+          flex-shrink: 0; /* 上の部分は縮ませない */
+          text-align: center;
+          padding-bottom: 10px;
+        }
+        h1 { font-size: 1.2rem; margin: 5px 0; }
+        .score-display { font-size: 0.9rem; font-weight: bold; color: #6b63b5; }
+        .divider { margin: 5px 0; border: none; height: 1px; background-color: #eee; }
+        .message-area { min-height: 1.5em; margin-bottom: 5px; }
+        .message-text { font-size: 0.9rem; font-weight: bold; }
         
         .ward-display {
-          font-size: 3.8rem;
+          font-size: 2.8rem;
           font-weight: bold;
           color: #6b63b5;
-          margin: 15px 0 5px 0;
-          line-height: 1.2;
+          margin: 10px 0;
+          line-height: 1.1;
         }
-        rt {
-          font-size: 1rem;
-          font-weight: normal;
-          display: ruby-text;
-          color: #666;
-          padding-bottom: 3px;
-        }
+        rt { font-size: 0.9rem; font-weight: normal; color: #666; display: ruby-text; }
 
-        .famous-tag { font-size: 0.85rem; color: #666; margin-bottom: 5px; background-color: #f9fafb; padding: 4px 12px; border-radius: 12px; display: inline-block; margin: 0 auto; }
-        .hint-area { min-height: 2.5em; margin: 8px 0; }
-        .hint-text { color: #6b63b5; font-size: 0.95rem; font-weight: 500; padding: 0 10px; }
+        .info-section { background-color: #f9fafb; padding: 8px; border-radius: 12px; margin-bottom: 10px; }
+        .famous-tag { font-size: 0.8rem; color: #666; margin-bottom: 4px; }
+        .hint-text { color: #6b63b5; font-size: 0.85rem; font-weight: 500; }
         
-        /* 地図スクロールエリアの設定 */
+        /* 地図のみをスクロールさせる設定 */
         .scrollable-map-container {
-          flex-grow: 1;
-          height: 500px; /* PCでの表示高さ */
-          overflow: auto; /* スクロールを許可 */
-          border: 2px solid #f0f0f0;
-          border-radius: 15px;
+          flex-grow: 1; /* 残りの画面をすべて使う */
+          overflow: auto; /* ここだけスクロールを許可 */
           background-color: #fafafa;
-          -webkit-overflow-scrolling: touch; /* iOSでの滑らかなスクロール */
+          border-radius: 10px;
+          border: 1px solid #eee;
+          -webkit-overflow-scrolling: touch;
         }
-
-        /* 地図を強制的に大きく表示させるためのラッパー */
         .map-zoom-wrapper {
-          width: 800px; /* スマホ画面よりわざと大きくする */
-          height: 600px; /* 高さを確保する */
+          width: 800px; /* 地図をわざと横長にする */
+          height: 600px; /* 地図をわざと縦長にする */
           margin: 0 auto;
         }
 
         @media (max-width: 600px) {
-          .ward-display { font-size: 3.2rem; }
-          .scrollable-map-container {
-            height: 450px; /* スマホでのスクロール窓の高さ */
-          }
-          .map-zoom-wrapper {
-            width: 700px; /* スマホでスクロールしたくなる大きさ */
-            height: 500px;
-          }
+          .ward-display { font-size: 2.5rem; }
+          .map-zoom-wrapper { width: 700px; height: 550px; }
         }
       `}</style>
     </div>
