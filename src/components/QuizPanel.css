@@ -1,138 +1,62 @@
 .quiz-panel {
-  margin-bottom: 30px;
+  padding: 20px;
   text-align: center;
 }
 
-.question {
-  margin-bottom: 20px;
-}
-
 .question h2 {
-  color: #333;
-  font-size: 1.3rem;
-  margin-bottom: 15px;
-  font-weight: 600;
-}
-
-.ward-name {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #4a90e2;
-  padding: 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.result {
-  padding: 25px;
-  border-radius: 15px;
-  margin-top: 20px;
-  animation: slideIn 0.3s ease-out;
-}
-
-.result.correct {
-  background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
-  color: #155724;
-}
-
-.result.incorrect {
-  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
-  color: #721c24;
-}
-
-.result-icon {
-  font-size: 4rem;
-  font-weight: bold;
+  font-size: 1.5rem;
+  color: #666;
   margin-bottom: 10px;
 }
 
-.result-text {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 20px;
+/* 区名のスタイル（ルビ対応） */
+.ward-name {
+  font-size: 5rem; /* PCでのサイズ */
+  font-weight: bold;
+  color: #4A90E2;
+  margin: 20px 0;
 }
+
+/* スマホ向けの強力な調整 */
+@media (max-width: 600px) {
+  .ward-name {
+    font-size: 4.5rem !important; /* 画面幅いっぱいに漢字を表示 */
+    margin: 30px 0 10px 0 !important;
+    line-height: 1.2;
+  }
+
+  /* ルビ（よみがな）のサイズと位置 */
+  rt {
+    font-size: 1.2rem !important;
+    letter-spacing: 0.1rem;
+    padding-bottom: 10px;
+    display: ruby-text;
+    color: #666;
+  }
+
+  /* 地図を大きく表示 */
+  .map-container {
+    height: 45vh !important;
+    margin-top: 10px !important;
+  }
+}
+
+.result {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.result.correct { background-color: #e8f5e9; }
+.result.incorrect { background-color: #ffebee; }
 
 .next-button {
-  background: white;
+  margin-top: 15px;
+  padding: 10px 30px;
+  font-size: 1.2rem;
+  background-color: #4A90E2;
+  color: white;
   border: none;
-  padding: 12px 30px;
-  border-radius: 25px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  border-radius: 5px;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s, box-shadow 0.2s;
-  color: #333;
-}
-
-.next-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-}
-
-.next-button:active {
-  transform: translateY(0);
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 768px) {
-  .ward-name {
-    font-size: 2rem;
-    padding: 15px;
-  }
-
-  .result-icon {
-    font-size: 3rem;
-  }
-
-  .result-text {
-    font-size: 1.2rem;
-  }
-}
-
-/* モバイル（スマホ）向けの調整：文字サイズ自動縮小版 */
-@media (max-width: 600px) {
-  .district-name {
-    /* 画面幅（vw）を基準にサイズを決めることで、絶対に2行にさせない */
-    font-size: 8vw !important; 
-    margin: 5px 0 !important;
-    white-space: nowrap !important;
-    display: block !important; /* flexから変更して中央揃えを確実に */
-    text-align: center;
-    width: 100%;
-    overflow: hidden; /* 万が一はみ出しても2行にしない */
-  }
-
-  /* よみがな部分の調整 */
-  .district-name span, 
-  .district-name small {
-    font-size: 4vw !important; /* 漢字の半分くらいのサイズに自動調整 */
-    display: inline-block;
-    margin-left: 5px;
-    vertical-align: middle;
-  }
-
-  /* 地図をさらに大きく確保 */
-  .map-container {
-    height: 45vh !important; /* 画面の高さの45%を地図に割り当てる */
-    margin-top: 5px !important;
-  }
-
-  /* クイズパネル全体の余白を極限まで削る */
-  .quiz-panel {
-    padding: 5px 10px !important;
-  }
 }
