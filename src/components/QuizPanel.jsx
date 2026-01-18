@@ -1,14 +1,22 @@
 import './QuizPanel.css'
 
 function QuizPanel({ currentWard, showResult, isCorrect, onNext }) {
-  // 漢字と読みを切り分ける（全角・半角両方のカッコに対応）
+  // 漢字と読みを切り分ける（スペースやカッコの種類を問わず対応）
   const renderWardName = () => {
-    const separator = currentWard.includes('（') ? '（' : (currentWard.includes('(') ? '(' : null);
+    if (!currentWard) return "";
     
-    if (separator) {
-      const [kanji, yomiWithParen] = currentWard.split(separator);
-      const yomi = yomiWithParen.replace(/[）\)]/g, '').trim();
-      return <ruby>{kanji.trim()}<rt>{yomi}</rt></ruby>;
+    // 全角・半角のカッコで分割
+    const parts = currentWard.split(/[（\((]/);
+    
+    if (parts.length > 1) {
+      const kanji = parts[0].trim();
+      const yomi = parts[1].replace(/[）\)]/g, '').trim();
+      return (
+        <ruby>
+          {kanji}
+          <rt>{yomi}</rt>
+        </ruby>
+      );
     }
     return currentWard;
   };
@@ -30,7 +38,7 @@ function QuizPanel({ currentWard, showResult, isCorrect, onNext }) {
         </div>
       )}
     </div>
-  )
+  );
 }
 
 export default QuizPanel
