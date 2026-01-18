@@ -136,8 +136,11 @@ function App() {
           )}
         </div>
 
-        <div className="map-wrapper">
-          <TokyoMap onwardClick={handleWardClick} answeredWards={answeredWards} />
+        {/* スクロール可能な地図エリア */}
+        <div className="scrollable-map-container">
+          <div className="map-zoom-wrapper">
+            <TokyoMap onwardClick={handleWardClick} answeredWards={answeredWards} />
+          </div>
         </div>
       </div>
 
@@ -158,49 +161,63 @@ function App() {
           max-width: 800px;
           margin: 0 auto;
           box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-          flex-grow: 1;
           display: flex;
           flex-direction: column;
+          overflow: hidden;
         }
-        h1 { font-size: 1.5rem; margin: 10px 0; }
-        .score-display { font-size: 1.1rem; font-weight: bold; color: #6b63b5; }
-        .divider { margin: 10px 0; border: none; height: 1px; backgroundColor: #eee; }
-        .message-area { min-height: 2em; display: flex; alignItems: center; justifyContent: center; margin-bottom: 5px; }
-        .message-text { font-size: 1.1rem; font-weight: bold; }
+        h1 { font-size: 1.4rem; margin: 5px 0; }
+        .score-display { font-size: 1rem; font-weight: bold; color: #6b63b5; }
+        .divider { margin: 8px 0; border: none; height: 1px; background-color: #eee; }
+        .message-area { min-height: 2.2em; display: flex; align-items: center; justify-content: center; }
+        .message-text { font-size: 1rem; font-weight: bold; }
         .message-text.correct { color: #1d4ed8; }
         
-        /* ルビ表示のスタイル */
         .ward-display {
-          font-size: 4rem;
+          font-size: 3.8rem;
           font-weight: bold;
           color: #6b63b5;
-          margin: 25px 0 10px 0;
+          margin: 15px 0 5px 0;
           line-height: 1.2;
         }
         rt {
-          font-size: 1.1rem;
+          font-size: 1rem;
           font-weight: normal;
           display: ruby-text;
           color: #666;
-          padding-bottom: 5px;
+          padding-bottom: 3px;
         }
 
-        .famous-tag { font-size: 0.9rem; color: #666; margin-bottom: 5px; background-color: #f9fafb; padding: 5px 15px; border-radius: 15px; }
-        .hint-area { min-height: 2.5em; margin-bottom: 10px; }
-        .hint-text { color: #6b63b5; font-size: 1rem; font-weight: 500; }
+        .famous-tag { font-size: 0.85rem; color: #666; margin-bottom: 5px; background-color: #f9fafb; padding: 4px 12px; border-radius: 12px; display: inline-block; margin: 0 auto; }
+        .hint-area { min-height: 2.5em; margin: 8px 0; }
+        .hint-text { color: #6b63b5; font-size: 0.95rem; font-weight: 500; padding: 0 10px; }
         
-        /* 地図を大きく広げるための設定 */
-        .map-wrapper {
+        /* 地図スクロールエリアの設定 */
+        .scrollable-map-container {
           flex-grow: 1;
-          min-height: 350px;
-          position: relative;
+          height: 500px; /* PCでの表示高さ */
+          overflow: auto; /* スクロールを許可 */
+          border: 2px solid #f0f0f0;
+          border-radius: 15px;
+          background-color: #fafafa;
+          -webkit-overflow-scrolling: touch; /* iOSでの滑らかなスクロール */
         }
 
-        /* スマホ（OPPO Reno 10 Pro）向けの微調整 */
+        /* 地図を強制的に大きく表示させるためのラッパー */
+        .map-zoom-wrapper {
+          width: 800px; /* スマホ画面よりわざと大きくする */
+          height: 600px; /* 高さを確保する */
+          margin: 0 auto;
+        }
+
         @media (max-width: 600px) {
-          .ward-display { font-size: 3.5rem; margin: 30px 0 10px 0; }
-          rt { font-size: 1rem; }
-          .map-wrapper { min-height: 400px; }
+          .ward-display { font-size: 3.2rem; }
+          .scrollable-map-container {
+            height: 450px; /* スマホでのスクロール窓の高さ */
+          }
+          .map-zoom-wrapper {
+            width: 700px; /* スマホでスクロールしたくなる大きさ */
+            height: 500px;
+          }
         }
       `}</style>
     </div>
