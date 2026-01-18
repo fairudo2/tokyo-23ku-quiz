@@ -103,39 +103,37 @@
   }
 }
 
-/* モバイル（スマホ）向けの調整 */
+/* モバイル（スマホ）向けの調整：よみがな対策版 */
 @media (max-width: 600px) {
-  /* 問題の区名のサイズを調整 */
+  /* 区名全体のサイズをさらに調整 */
   .district-name {
-    font-size: 3rem !important; /* 文字を少し小さくして1行に収まりやすくする */
-    margin: 10px 0 !important;
-    white-space: nowrap; /* 強制的に1行にする */
-  }
-
-  /* 「残念！そこは〜」などのメッセージ欄の余白を削る */
-  .feedback-message {
-    font-size: 1rem !important;
-    margin-bottom: 5px !important;
-  }
-
-  /* 覚え方（ヒント）の文字サイズを調整 */
-  .hint-section {
-    font-size: 0.9rem !important;
-    margin: 5px 0 !important;
-  }
-
-  /* 地図のコンテナを大きく広げる */
-  .map-container {
-    height: 350px !important; /* 高さを確保して地図を大きく見せる */
-    margin-top: 10px !important;
-    flex-grow: 1; /* 余ったスペースを地図に割り当てる */
-  }
-
-  /* 全体のパディングを調整して上下の詰まりを解消 */
-  .quiz-panel {
-    padding: 10px !important;
+    font-size: 2.2rem !important; /* 3remから2.2remに少し小さくして、1行に収める */
+    margin: 8px 0 !important;
+    white-space: nowrap !important; /* 絶対に改行させない */
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-wrap: nowrap; /* 中の要素も横並びをキープ */
+    align-items: baseline;
+    justify-content: center;
+    gap: 5px; /* 漢字とよみがなの間の隙間 */
+  }
+
+  /* よみがな部分だけをさらに小さくする */
+  .district-name span, 
+  .district-name small {
+    font-size: 1.1rem !important; /* よみがなを小さくして、メインの区名を際立たせる */
+    opacity: 0.8;
+  }
+
+  /* 地図を最大限大きく表示 */
+  .map-container {
+    height: 380px !important; /* 高さを少し増やしました */
+    margin-top: 5px !important;
+    flex-grow: 1;
+  }
+
+  /* ヒントやメッセージの余白を最小限にする */
+  .feedback-message {
+    font-size: 0.9rem !important;
+    margin-bottom: 2px !important;
   }
 }
